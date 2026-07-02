@@ -1,0 +1,155 @@
+.restaurant-dashboard {
+  max-width: 1300px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.restaurant-dashboard h1 {
+  text-align: center;
+  color: #ff5a1f;
+  margin-bottom: 40px;
+  font-size: 40px;
+}
+
+.dashboard-loading {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.restaurant-info-card {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  margin-bottom: 50px;
+}
+
+.restaurant-info-card img {
+  width: 280px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.restaurant-info-card h2 {
+  color: #222;
+  margin-bottom: 15px;
+}
+
+.restaurant-info-card p {
+  margin: 10px 0;
+  color: #666;
+}
+
+.orders-title {
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.no-orders {
+  text-align: center;
+  background: white;
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  font-size: 20px;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(360px,1fr));
+  gap: 30px;
+}
+
+.dashboard-order-card {
+  background: white;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  transition: .3s;
+}
+
+.dashboard-order-card:hover {
+  transform: translateY(-6px);
+}
+
+.dashboard-order-card h3 {
+  color: #ff5a1f;
+  margin-bottom: 10px;
+}
+
+.dashboard-order-card h4 {
+  margin-top: 20px;
+  color: #222;
+}
+
+.dashboard-order-card p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.dashboard-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.dashboard-order-card hr {
+  margin: 18px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+@media(max-width:768px){
+
+.restaurant-info-card{
+flex-direction:column;
+text-align:center;
+}
+
+.restaurant-info-card img{
+width:100%;
+height:220px;
+}
+
+.orders-grid{
+grid-template-columns:1fr;
+}
+
+.restaurant-dashboard h1{
+font-size:32px;
+}
+
+}
+
+.status-box {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-box label {
+  font-weight: 600;
+  color: #444;
+}
+
+.status-box select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+}
+
+.status-box select:focus {
+  border-color: #ff5a1f;
+}

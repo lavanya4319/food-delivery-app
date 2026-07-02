@@ -1,0 +1,48 @@
+.category-section {
+  background: #ffffff;
+  padding: 70px 8%;
+}
+
+.category-container {
+  max-width: 1300px;
+  margin: auto;
+}
+
+.category-container h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: #1f2937;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 25px;
+}
+
+.category-card {
+  background: #fff8f3;
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  border-color: #ff5a1f;
+  box-shadow: 0 15px 30px rgba(255, 90, 31, 0.15);
+}
+
+.category-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.category-card h3 {
+  color: #1f2937;
+  font-size: 18px;
+}
