@@ -1,0 +1,85 @@
+.orders-table-container {
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  overflow-x: auto;
+  margin-top: 35px;
+}
+
+.orders-table-container h2 {
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table thead {
+  background: #ff5a1f;
+  color: white;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.orders-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.payment-status,
+.order-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.payment-status.paid {
+  background: #16a34a;
+}
+
+.payment-status.pending {
+  background: #f59e0b;
+}
+
+.payment-status.failed {
+  background: #dc2626;
+}
+
+.order-status.pending {
+  background: #f59e0b;
+}
+
+.order-status.confirmed {
+  background: #2563eb;
+}
+
+.order-status.preparing {
+  background: #9333ea;
+}
+
+.order-status.out-for-delivery {
+  background: #0891b2;
+}
+
+.order-status.delivered {
+  background: #16a34a;
+}
+
+.order-status.cancelled {
+  background: #dc2626;
+}
+
+.no-data {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}

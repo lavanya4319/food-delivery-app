@@ -1,4 +1,9 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
+
 import {
   FaBars,
   FaTimes,
@@ -7,7 +12,9 @@ import {
   FaSignOutAlt,
   FaClipboardList,
   FaStore,
+  FaUserShield,
 } from "react-icons/fa";
+
 import { useState } from "react";
 
 import { useAuth } from "../../context/AuthContext";
@@ -15,7 +22,8 @@ import { useAuth } from "../../context/AuthContext";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] =
+    useState(false);
 
   const { user, logout } = useAuth();
 
@@ -38,24 +46,48 @@ const Navbar = () => {
   return (
     <header className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="logo" onClick={closeMenu}>
+
+        <Link
+          to="/"
+          className="logo"
+          onClick={closeMenu}
+        >
           🍔 FoodExpress
         </Link>
 
-        <nav className={menuOpen ? "nav-links active" : "nav-links"}>
-          <NavLink to="/" onClick={closeMenu}>
+        <nav
+          className={
+            menuOpen
+              ? "nav-links active"
+              : "nav-links"
+          }
+        >
+          <NavLink
+            to="/"
+            onClick={closeMenu}
+          >
             Home
           </NavLink>
 
-          <NavLink to="/orders" onClick={closeMenu}>
-            <FaClipboardList />
-            Orders
-          </NavLink>
+          {user?.role !== "admin" && (
+            <>
+              <NavLink
+                to="/orders"
+                onClick={closeMenu}
+              >
+                <FaClipboardList />
+                Orders
+              </NavLink>
 
-          <NavLink to="/cart" onClick={closeMenu}>
-            <FaShoppingCart />
-            Cart
-          </NavLink>
+              <NavLink
+                to="/cart"
+                onClick={closeMenu}
+              >
+                <FaShoppingCart />
+                Cart
+              </NavLink>
+            </>
+          )}
 
           {user?.role === "restaurant" && (
             <NavLink
@@ -67,9 +99,22 @@ const Navbar = () => {
             </NavLink>
           )}
 
+          {user?.role === "admin" && (
+            <NavLink
+              to="/admin-dashboard"
+              onClick={closeMenu}
+            >
+              <FaUserShield />
+              Admin
+            </NavLink>
+          )}
+
           {user ? (
             <>
-              <NavLink to="/profile" onClick={closeMenu}>
+              <NavLink
+                to="/profile"
+                onClick={closeMenu}
+              >
                 <FaUserCircle />
                 Profile
               </NavLink>
@@ -89,12 +134,18 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <NavLink to="/login" onClick={closeMenu}>
+              <NavLink
+                to="/login"
+                onClick={closeMenu}
+              >
                 <FaUserCircle />
                 Login
               </NavLink>
 
-              <NavLink to="/register" onClick={closeMenu}>
+              <NavLink
+                to="/register"
+                onClick={closeMenu}
+              >
                 Register
               </NavLink>
             </>
@@ -106,8 +157,13 @@ const Navbar = () => {
           onClick={toggleMenu}
           type="button"
         >
-          {menuOpen ? <FaTimes /> : <FaBars />}
+          {menuOpen ? (
+            <FaTimes />
+          ) : (
+            <FaBars />
+          )}
         </button>
+
       </div>
     </header>
   );

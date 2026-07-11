@@ -1,0 +1,35 @@
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 18px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  transition: .3s;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px);
+}
+
+.dashboard-card h2 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.dashboard-card h3 {
+  color: #ff5a1f;
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.dashboard-card p {
+  color: #666;
+  font-size: 16px;
+}

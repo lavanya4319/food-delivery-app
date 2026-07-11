@@ -1,0 +1,40 @@
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 35px;
+}
+
+.admin-content h1 {
+  color: #222;
+  margin-bottom: 35px;
+  font-size: 36px;
+}
+
+.admin-loading {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .admin-dashboard {
+    flex-direction: column;
+  }
+
+  .admin-content {
+    padding: 20px;
+  }
+
+  .admin-content h1 {
+    font-size: 30px;
+    text-align: center;
+  }
+}

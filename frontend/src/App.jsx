@@ -11,6 +11,7 @@ import Orders from "./pages/Orders/Orders";
 import Profile from "./pages/Profile/Profile";
 import Payment from "./pages/Payment/Payment";
 import RestaurantDashboard from "./pages/RestaurantDashboard/RestaurantDashboard";
+import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 
 function App() {
   return (
@@ -37,6 +38,11 @@ function App() {
         <Route
           path="/restaurant-dashboard"
           element={<RestaurantDashboard />}
+        />
+
+        <Route
+          path="/admin-dashboard"
+          element={<AdminDashboard />}
         />
       </Routes>
     </>

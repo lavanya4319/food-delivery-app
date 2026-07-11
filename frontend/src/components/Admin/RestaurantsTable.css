@@ -1,0 +1,63 @@
+.restaurants-table-container {
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  overflow-x: auto;
+  margin-top: 35px;
+}
+
+.restaurants-table-container h2 {
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.restaurants-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.restaurants-table thead {
+  background: #ff5a1f;
+  color: white;
+}
+
+.restaurants-table th,
+.restaurants-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.restaurants-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.restaurant-image {
+  width: 75px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status.open {
+  background: #16a34a;
+}
+
+.status.closed {
+  background: #dc2626;
+}
+
+.no-data {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
