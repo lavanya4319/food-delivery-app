@@ -3,8 +3,10 @@ const express = require("express");
 const {
   getDashboardStats,
   getAllUsers,
+  toggleUserBlockStatus,
   getAllRestaurantsAdmin,
   getAllOrders,
+  updateOrderStatusAdmin,
 } = require("../controllers/adminController");
 
 const {
@@ -29,6 +31,11 @@ router.get(
   getAllUsers
 );
 
+router.patch(
+  "/users/:id/block",
+  toggleUserBlockStatus
+);
+
 router.get(
   "/restaurants",
   getAllRestaurantsAdmin
@@ -37,6 +44,11 @@ router.get(
 router.get(
   "/orders",
   getAllOrders
+);
+
+router.patch(
+  "/orders/:id/status",
+  updateOrderStatusAdmin
 );
 
 module.exports = router;

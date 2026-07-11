@@ -1,57 +1,62 @@
 import "./DashboardCards.css";
 
 const DashboardCards = ({ dashboard }) => {
+  const cards = [
+    {
+      title: "Total Users",
+      value: dashboard.totalUsers,
+      icon: "👥",
+      className: "users-card",
+    },
+    {
+      title: "Restaurants",
+      value: dashboard.totalRestaurants,
+      icon: "🍽",
+      className: "restaurants-card",
+    },
+    {
+      title: "Orders",
+      value: dashboard.totalOrders,
+      icon: "📦",
+      className: "orders-card",
+    },
+    {
+      title: "Revenue",
+      value: `₹${dashboard.totalRevenue}`,
+      icon: "💰",
+      className: "revenue-card",
+    },
+    {
+      title: "Pending Orders",
+      value: dashboard.pendingOrders,
+      icon: "⏳",
+      className: "pending-card",
+    },
+    {
+      title: "Delivered",
+      value: dashboard.deliveredOrders,
+      icon: "✅",
+      className: "delivered-card",
+    },
+  ];
+
   return (
     <div className="dashboard-cards">
+      {cards.map((card) => (
+        <div
+          key={card.title}
+          className={`dashboard-card ${card.className}`}
+        >
+          <div className="card-icon">
+            {card.icon}
+          </div>
 
-      <div className="dashboard-card">
-        <h2>👥</h2>
-
-        <h3>{dashboard.totalUsers}</h3>
-
-        <p>Total Users</p>
-      </div>
-
-      <div className="dashboard-card">
-        <h2>🍽</h2>
-
-        <h3>{dashboard.totalRestaurants}</h3>
-
-        <p>Restaurants</p>
-      </div>
-
-      <div className="dashboard-card">
-        <h2>📦</h2>
-
-        <h3>{dashboard.totalOrders}</h3>
-
-        <p>Total Orders</p>
-      </div>
-
-      <div className="dashboard-card">
-        <h2>💰</h2>
-
-        <h3>₹ {dashboard.totalRevenue}</h3>
-
-        <p>Total Revenue</p>
-      </div>
-
-      <div className="dashboard-card">
-        <h2>🟡</h2>
-
-        <h3>{dashboard.pendingOrders}</h3>
-
-        <p>Pending Orders</p>
-      </div>
-
-      <div className="dashboard-card">
-        <h2>✅</h2>
-
-        <h3>{dashboard.deliveredOrders}</h3>
-
-        <p>Delivered Orders</p>
-      </div>
-
+          <div className="card-info">
+            <h2>{card.value}</h2>
+            <p>{card.title}</p>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

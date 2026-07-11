@@ -1,78 +1,207 @@
+import { useState } from "react";
+import { toast } from "react-toastify";
+
+import {
+  updateOrderStatus,
+} from "../../api/adminApi";
+
 import "./OrdersTable.css";
 
-const OrdersTable = ({ orders }) => {
+const OrdersTable = ({
+  orders,
+  refreshOrders,
+}) => {
+  const [loadingId, setLoadingId] =
+    useState(null);
+
+  const handleStatusChange = async (
+    orderId,
+    status
+  ) => {
+    setLoadingId(orderId);
+
+    const response =
+      await updateOrderStatus(
+        orderId,
+        status
+      );
+
+    if (response.success) {
+      toast.success(response.message);
+      refreshOrders();
+    } else {
+      toast.error(response.message);
+    }
+
+    setLoadingId(null);
+  };
+
   return (
-    <div className="orders-table-container">
-      <h2>📦 All Orders</h2>
+    <div className="orders-table-card">
 
-      <table className="orders-table">
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Restaurant</th>
-            <th>Total</th>
-            <th>Payment</th>
-            <th>Payment Status</th>
-            <th>Order Status</th>
-            <th>Ordered On</th>
-          </tr>
-        </thead>
+      <div className="table-header">
+        <h2>📦 Orders Management</h2>
 
-        <tbody>
-          {orders.length === 0 ? (
+        <span>{orders.length} Orders</span>
+      </div>
+
+      <div className="table-responsive">
+
+        <table className="orders-table">
+
+          <thead>
             <tr>
-              <td colSpan="7" className="no-data">
-                No Orders Found
-              </td>
+              <th>Customer</th>
+              <th>Restaurant</th>
+              <th>Amount</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Update Status</th>
+              <th>Date</th>
             </tr>
-          ) : (
-            orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order.user?.name}</td>
+          </thead>
 
-                <td>
-                  {order.restaurant?.restaurantName}
-                </td>
+          <tbody>
 
-                <td>₹ {order.totalAmount}</td>
-
-                <td>{order.paymentMethod}</td>
-
-                <td>
-                  <span
-                    className={`payment-status ${
-                      order.paymentStatus === "Paid"
-                        ? "paid"
-                        : order.paymentStatus ===
-                          "Pending"
-                        ? "pending"
-                        : "failed"
-                    }`}
-                  >
-                    {order.paymentStatus}
-                  </span>
-                </td>
-
-                <td>
-                  <span
-                    className={`order-status ${order.status
-                      .replace(/\s+/g, "-")
-                      .toLowerCase()}`}
-                  >
-                    {order.status}
-                  </span>
-                </td>
-
-                <td>
-                  {new Date(
-                    order.createdAt
-                  ).toLocaleDateString()}
+            {orders.length === 0 ? (
+              <tr>
+                <td
+                  colSpan="7"
+                  className="no-data"
+                >
+                  No Orders Found
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              orders.map((order) => (
+                <tr key={order._id}>
+
+                  <td>
+                    <strong>
+                      {order.user?.name}
+                    </strong>
+
+                    <p className="small-text">
+                      {order.user?.email}
+                    </p>
+                  </td>
+
+                  <td>
+                    {
+                      order.restaurant
+                        ?.restaurantName
+                    }
+                  </td>
+
+                  <td>
+                    <strong>
+                      ₹ {order.totalAmount}
+                    </strong>
+                  </td>
+
+                  <td>
+
+                    <span
+                      className={
+                        order.paymentStatus ===
+                        "Paid"
+                          ? "payment paid"
+                          : "payment pending"
+                      }
+                    >
+                      {order.paymentMethod}
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <span
+                      className={`order-status ${order.status
+                        .replace(/\s/g, "")
+                        .toLowerCase()}`}
+                    >
+                      {order.status}
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <select
+                      className="status-select"
+                      value={order.status}
+                      disabled={
+                        loadingId ===
+                        order._id
+                      }
+                      onChange={(e) =>
+                        handleStatusChange(
+                          order._id,
+                          e.target.value
+                        )
+                      }
+                    >
+                      <option>
+                        Pending
+                      </option>
+
+                      <option>
+                        Confirmed
+                      </option>
+
+                      <option>
+                        Preparing
+                      </option>
+
+                      <option>
+                        Out for Delivery
+                      </option>
+
+                      <option>
+                        Delivered
+                      </option>
+
+                      <option>
+                        Cancelled
+                      </option>
+
+                    </select>
+
+                    {loadingId ===
+                      order._id && (
+                      <p
+                        style={{
+                          color:
+                            "#ff5a1f",
+                          fontSize:
+                            "12px",
+                          marginTop:
+                            "6px",
+                        }}
+                      >
+                        Updating...
+                      </p>
+                    )}
+
+                  </td>
+
+                  <td>
+                    {new Date(
+                      order.createdAt
+                    ).toLocaleDateString()}
+                  </td>
+
+                </tr>
+              ))
+            )}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
     </div>
   );
 };

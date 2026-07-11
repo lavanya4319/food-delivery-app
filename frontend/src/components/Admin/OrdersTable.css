@@ -1,85 +1,137 @@
-.orders-table-container {
-  background: white;
-  border-radius: 18px;
-  padding: 25px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.08);
-  overflow-x: auto;
-  margin-top: 35px;
+.orders-table-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
-.orders-table-container h2 {
-  margin-bottom: 20px;
-  color: #222;
+.table-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
 }
 
-.orders-table {
-  width: 100%;
-  border-collapse: collapse;
+.table-header h2{
+    font-size:26px;
+    color:#1f2937;
 }
 
-.orders-table thead {
-  background: #ff5a1f;
-  color: white;
+.table-header span{
+    background:#fff4ef;
+    color:#ff5a1f;
+    padding:8px 16px;
+    border-radius:30px;
+    font-weight:600;
 }
 
-.orders-table th,
-.orders-table td {
-  padding: 14px;
-  border-bottom: 1px solid #eee;
-  text-align: left;
+.table-responsive{
+    overflow-x:auto;
 }
 
-.orders-table tbody tr:hover {
-  background: #fafafa;
+.orders-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:950px;
 }
 
-.payment-status,
-.order-status {
-  padding: 6px 12px;
-  border-radius: 20px;
-  color: white;
-  font-size: 13px;
-  font-weight: 600;
+.orders-table thead{
+    background:#ff5a1f;
+    color:white;
 }
 
-.payment-status.paid {
-  background: #16a34a;
+.orders-table th{
+    padding:18px;
+    text-align:left;
 }
 
-.payment-status.pending {
-  background: #f59e0b;
+.orders-table td{
+    padding:18px;
+    border-bottom:1px solid #ececec;
 }
 
-.payment-status.failed {
-  background: #dc2626;
+.orders-table tbody tr:hover{
+    background:#fff9f6;
 }
 
-.order-status.pending {
-  background: #f59e0b;
+.small-text{
+    font-size:13px;
+    color:#777;
+    margin-top:4px;
 }
 
-.order-status.confirmed {
-  background: #2563eb;
+.payment,
+.order-status{
+    padding:7px 14px;
+    border-radius:30px;
+    color:white;
+    font-size:13px;
+    font-weight:600;
 }
 
-.order-status.preparing {
-  background: #9333ea;
+.payment.paid{
+    background:#22c55e;
 }
 
-.order-status.out-for-delivery {
-  background: #0891b2;
+.payment.pending{
+    background:#ef4444;
 }
 
-.order-status.delivered {
-  background: #16a34a;
+.order-status.pending{
+    background:#f59e0b;
 }
 
-.order-status.cancelled {
-  background: #dc2626;
+.order-status.confirmed{
+    background:#2563eb;
 }
 
-.no-data {
-  text-align: center;
-  padding: 30px;
-  color: #777;
+.order-status.preparing{
+    background:#8b5cf6;
+}
+
+.order-status.outfordelivery{
+    background:#06b6d4;
+}
+
+.order-status.delivered{
+    background:#16a34a;
+}
+
+.order-status.cancelled{
+    background:#dc2626;
+}
+
+.no-data{
+    text-align:center;
+    padding:40px;
+    font-size:18px;
+    color:#888;
+}
+
+@media(max-width:900px){
+
+.table-header{
+flex-direction:column;
+align-items:flex-start;
+gap:15px;
+}
+
+.orders-table{
+min-width:850px;
+}
+
+}
+
+.status-select{
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+    cursor:pointer;
+    min-width:170px;
+    background:white;
+}
+
+.status-select:focus{
+    border-color:#ff5a1f;
 }

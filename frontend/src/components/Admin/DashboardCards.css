@@ -1,35 +1,91 @@
 .dashboard-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 35px;
 }
 
 .dashboard-card {
-  background: white;
+  position: relative;
+  overflow: hidden;
   border-radius: 18px;
-  padding: 30px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,.08);
-  transition: .3s;
+  padding: 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transition: all 0.35s ease;
+  cursor: default;
+  box-shadow: 0 12px 25px rgba(0,0,0,.12);
 }
 
 .dashboard-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
 }
 
-.dashboard-card h2 {
-  font-size: 42px;
-  margin-bottom: 15px;
-}
-
-.dashboard-card h3 {
-  color: #ff5a1f;
+.card-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 34px;
-  margin-bottom: 10px;
 }
 
-.dashboard-card p {
-  color: #666;
+.card-info h2 {
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+
+.card-info p {
   font-size: 16px;
+  opacity: .95;
+}
+
+.users-card {
+  background: linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.restaurants-card {
+  background: linear-gradient(135deg,#10b981,#059669);
+}
+
+.orders-card {
+  background: linear-gradient(135deg,#f59e0b,#d97706);
+}
+
+.revenue-card {
+  background: linear-gradient(135deg,#8b5cf6,#6d28d9);
+}
+
+.pending-card {
+  background: linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+.delivered-card {
+  background: linear-gradient(135deg,#14b8a6,#0f766e);
+}
+
+@media (max-width:768px){
+
+.dashboard-cards{
+grid-template-columns:1fr;
+}
+
+.dashboard-card{
+padding:20px;
+}
+
+.card-info h2{
+font-size:28px;
+}
+
+.card-icon{
+width:60px;
+height:60px;
+font-size:28px;
+}
+
 }

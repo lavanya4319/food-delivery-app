@@ -37,6 +37,11 @@ const userSchema = new mongoose.Schema(
       enum: ["customer", "restaurant", "admin"],
       default: "customer",
     },
+
+    isBlocked: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

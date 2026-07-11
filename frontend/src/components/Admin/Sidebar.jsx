@@ -5,63 +5,78 @@ const Sidebar = ({
   setActiveTab,
 }) => {
   return (
-    <div className="admin-sidebar">
+    <aside className="admin-sidebar">
 
-      <h2>FoodExpress</h2>
+      <div className="admin-logo">
+        <h2>🍔 FoodExpress</h2>
+        <p>Admin Panel</p>
+      </div>
 
-      <button
-        className={
-          activeTab === "dashboard"
-            ? "active"
-            : ""
-        }
-        onClick={() =>
-          setActiveTab("dashboard")
-        }
-      >
-        🏠 Dashboard
-      </button>
+      <div className="admin-menu">
 
-      <button
-        className={
-          activeTab === "users"
-            ? "active"
-            : ""
-        }
-        onClick={() =>
-          setActiveTab("users")
-        }
-      >
-        👥 Users
-      </button>
+        <button
+          className={
+            activeTab === "dashboard"
+              ? "active"
+              : ""
+          }
+          onClick={() =>
+            setActiveTab("dashboard")
+          }
+        >
+          <span>🏠</span>
+          Dashboard
+        </button>
 
-      <button
-        className={
-          activeTab === "restaurants"
-            ? "active"
-            : ""
-        }
-        onClick={() =>
-          setActiveTab("restaurants")
-        }
-      >
-        🍽 Restaurants
-      </button>
+        <button
+          className={
+            activeTab === "users"
+              ? "active"
+              : ""
+          }
+          onClick={() =>
+            setActiveTab("users")
+          }
+        >
+          <span>👥</span>
+          Users
+        </button>
 
-      <button
-        className={
-          activeTab === "orders"
-            ? "active"
-            : ""
-        }
-        onClick={() =>
-          setActiveTab("orders")
-        }
-      >
-        📦 Orders
-      </button>
+        <button
+          className={
+            activeTab === "restaurants"
+              ? "active"
+              : ""
+          }
+          onClick={() =>
+            setActiveTab("restaurants")
+          }
+        >
+          <span>🍽</span>
+          Restaurants
+        </button>
 
-    </div>
+        <button
+          className={
+            activeTab === "orders"
+              ? "active"
+              : ""
+          }
+          onClick={() =>
+            setActiveTab("orders")
+          }
+        >
+          <span>📦</span>
+          Orders
+        </button>
+
+      </div>
+
+      <div className="admin-footer">
+        <p>Administrator</p>
+      </div>
+
+    </aside>
   );
 };
 

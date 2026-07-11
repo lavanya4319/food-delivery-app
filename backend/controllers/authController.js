@@ -73,6 +73,15 @@ const loginUser = async (req, res) => {
       });
     }
 
+    // 🚫 Blocked user check
+    if (user.isBlocked) {
+      return res.status(403).json({
+        success: false,
+        message:
+          "Your account has been blocked. Please contact the administrator.",
+      });
+    }
+
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {

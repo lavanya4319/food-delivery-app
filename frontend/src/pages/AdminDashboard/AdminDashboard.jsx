@@ -96,7 +96,13 @@ const AdminDashboard = () => {
 
       <div className="admin-content">
 
+        <>
         <h1>🛡 Admin Dashboard</h1>
+
+        <p className="admin-subtitle">
+    Welcome back! Manage users, restaurants, orders and monitor your platform from one place.
+        </p>
+        </>
 
         {activeTab === "dashboard" && (
           <DashboardCards
@@ -105,18 +111,25 @@ const AdminDashboard = () => {
         )}
 
         {activeTab === "users" && (
-          <UsersTable users={users} />
+          <UsersTable
+          users={users}
+          refreshUsers={loadAdminData}
+          />
         )}
 
         {activeTab ===
           "restaurants" && (
           <RestaurantsTable
             restaurants={restaurants}
+            refreshRestaurants={loadAdminData}
           />
         )}
 
         {activeTab === "orders" && (
-          <OrdersTable orders={orders} />
+          <OrdersTable
+            orders={orders}
+            refreshOrders={loadAdminData}
+          />
         )}
 
       </div>

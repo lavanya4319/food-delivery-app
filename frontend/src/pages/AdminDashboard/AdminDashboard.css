@@ -1,18 +1,34 @@
 .admin-dashboard {
   display: flex;
   min-height: 100vh;
-  background: #f5f7fb;
+  background: #f4f7fb;
 }
 
 .admin-content {
   flex: 1;
-  padding: 35px;
+  padding: 40px;
+  overflow-x: auto;
 }
 
 .admin-content h1 {
-  color: #222;
-  margin-bottom: 35px;
   font-size: 36px;
+  color: #1f2937;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.admin-subtitle {
+  color: #6b7280;
+  font-size: 16px;
+  margin-bottom: 35px;
+}
+
+.admin-section {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 35px;
 }
 
 .admin-loading {
@@ -20,11 +36,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 30px;
+  font-weight: 700;
+  color: #ff5a1f;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 992px) {
   .admin-dashboard {
     flex-direction: column;
   }
@@ -34,7 +51,15 @@
   }
 
   .admin-content h1 {
-    font-size: 30px;
     text-align: center;
+    font-size: 30px;
+  }
+
+  .admin-subtitle {
+    text-align: center;
+  }
+
+  .admin-section {
+    padding: 18px;
   }
 }
