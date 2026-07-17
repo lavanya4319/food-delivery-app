@@ -10,12 +10,18 @@ import Footer from "../../components/Footer/Footer";
 
 import { getRestaurants } from "../../api/restaurantApi";
 
+import "./Home.css";
+
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [selectedCuisine, setSelectedCuisine] =
     useState("All");
+  const [sortBy, setSortBy] = useState("featured");
+  const [showFavoritesOnly, setShowFavoritesOnly] =
+    useState(false);
+  const [showOpenOnly, setShowOpenOnly] = useState(false);
 
   useEffect(() => {
     loadRestaurants();
@@ -36,29 +42,66 @@ const Home = () => {
   };
 
   const filteredRestaurants = useMemo(() => {
-    return restaurants.filter((restaurant) => {
-      const matchesSearch =
-        restaurant.restaurantName
-          .toLowerCase()
-          .includes(search.toLowerCase()) ||
-        restaurant.cuisine
-          ?.join(" ")
-          .toLowerCase()
-          .includes(search.toLowerCase()) ||
-        restaurant.address
-          .toLowerCase()
-          .includes(search.toLowerCase());
+    const favorites =
+      JSON.parse(localStorage.getItem("favorites")) || [];
 
-      const matchesCuisine =
-        selectedCuisine === "All" ||
-        restaurant.cuisine?.includes(selectedCuisine);
+    return restaurants
+      .filter((restaurant) => {
+        const matchesSearch =
+          restaurant.restaurantName
+            .toLowerCase()
+            .includes(search.toLowerCase()) ||
+          restaurant.cuisine
+            ?.join(" ")
+            .toLowerCase()
+            .includes(search.toLowerCase()) ||
+          restaurant.address
+            .toLowerCase()
+            .includes(search.toLowerCase());
 
-      return matchesSearch && matchesCuisine;
-    });
+        const matchesCuisine =
+          selectedCuisine === "All" ||
+          restaurant.cuisine?.includes(selectedCuisine);
+
+        const matchesFavorites =
+          !showFavoritesOnly ||
+          favorites.some((item) => item._id === restaurant._id);
+
+        const matchesOpen =
+          !showOpenOnly || restaurant.isOpen;
+
+        return (
+          matchesSearch &&
+          matchesCuisine &&
+          matchesFavorites &&
+          matchesOpen
+        );
+      })
+      .sort((a, b) => {
+        if (sortBy === "rating") {
+          return (b.rating || 4.5) - (a.rating || 4.5);
+        }
+
+        if (sortBy === "delivery") {
+          return (
+            Number(a.deliveryTime?.split("-")[0]) -
+            Number(b.deliveryTime?.split("-")[0])
+          );
+        }
+
+        if (sortBy === "price") {
+          return a.minimumOrder - b.minimumOrder;
+        }
+
+        return 0;
+      });
   }, [
     restaurants,
     search,
     selectedCuisine,
+    sortBy,
+    showFavoritesOnly,
+    showOpenOnly,
   ]);
 
   return (
@@ -71,71 +114,98 @@ const Home = () => {
 
       <section
         id="restaurants-section"
-        style={{
-          background: "#fafafa",
-          padding: "80px 8%",
-        }}
+        className="home-page"
       >
-        <div
-          style={{
-            maxWidth: "1300px",
-            margin: "auto",
-          }}
-        >
-          <h2
-            style={{
-              textAlign: "center",
-              fontSize: "38px",
-              marginBottom: "20px",
-              color: "#1f2937",
-            }}
-          >
-            🔥 Popular Restaurants
-          </h2>
+        <div className="home-restaurant-section">
+          <div className="home-restaurant-inner">
+            <h2>🔥 Popular Restaurants</h2>
 
-          <SearchBar
-            search={search}
-            setSearch={setSearch}
-          />
+            <div className="discovery-panel">
+              <div className="discovery-header">
+                <p className="discovery-title">
+                  Smart discovery powered by your preferences
+                </p>
+                <span className="discovery-summary">
+                  {filteredRestaurants.length} result(s)
+                </span>
+              </div>
 
-          <CuisineFilter
-            selectedCuisine={selectedCuisine}
-            setSelectedCuisine={setSelectedCuisine}
-          />
-
-          {loading ? (
-            <h3 style={{ textAlign: "center" }}>
-              Loading Restaurants...
-            </h3>
-          ) : filteredRestaurants.length === 0 ? (
-            <div
-              style={{
-                textAlign: "center",
-                marginTop: "60px",
-              }}
-            >
-              <h2>No restaurants found 🍽️</h2>
-              <p>
-                Try a different search or cuisine.
-              </p>
-            </div>
-          ) : (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fit,minmax(320px,1fr))",
-                gap: "30px",
-              }}
-            >
-              {filteredRestaurants.map((restaurant) => (
-                <RestaurantCard
-                  key={restaurant._id}
-                  restaurant={restaurant}
+              <div className="discovery-controls">
+                <SearchBar
+                  search={search}
+                  setSearch={setSearch}
                 />
-              ))}
+
+                <div className="control-group">
+                  <label htmlFor="sortBy">Sort by</label>
+                  <select
+                    id="sortBy"
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                  >
+                    <option value="featured">Featured</option>
+                    <option value="rating">Top rated</option>
+                    <option value="delivery">Fastest delivery</option>
+                    <option value="price">Lowest minimum order</option>
+                  </select>
+                </div>
+
+                <label className="toggle-pill">
+                  <input
+                    type="checkbox"
+                    checked={showFavoritesOnly}
+                    onChange={(e) =>
+                      setShowFavoritesOnly(e.target.checked)
+                    }
+                  />
+                  Favorites only
+                </label>
+
+                <label className="toggle-pill">
+                  <input
+                    type="checkbox"
+                    checked={showOpenOnly}
+                    onChange={(e) =>
+                      setShowOpenOnly(e.target.checked)
+                    }
+                  />
+                  Open now
+                </label>
+              </div>
             </div>
-          )}
+
+            <CuisineFilter
+              selectedCuisine={selectedCuisine}
+              setSelectedCuisine={setSelectedCuisine}
+            />
+
+            {loading ? (
+              <h3 style={{ textAlign: "center" }}>
+                Loading Restaurants...
+              </h3>
+            ) : filteredRestaurants.length === 0 ? (
+              <div
+                style={{
+                  textAlign: "center",
+                  marginTop: "60px",
+                }}
+              >
+                <h2>No restaurants found 🍽️</h2>
+                <p>
+                  Try a different search, cuisine, or discovery filter.
+                </p>
+              </div>
+            ) : (
+              <div className="results-grid">
+                {filteredRestaurants.map((restaurant) => (
+                  <RestaurantCard
+                    key={restaurant._id}
+                    restaurant={restaurant}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </section>
 

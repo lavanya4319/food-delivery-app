@@ -1,0 +1,115 @@
+.home-page {
+  background: #fafafa;
+}
+
+.home-restaurant-section {
+  padding: 80px 8%;
+}
+
+.home-restaurant-inner {
+  max-width: 1300px;
+  margin: auto;
+}
+
+.home-restaurant-section h2 {
+  text-align: center;
+  font-size: 38px;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+.discovery-panel {
+  display: grid;
+  gap: 18px;
+  background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+  border: 1px solid #fed7aa;
+  border-radius: 22px;
+  padding: 22px;
+  margin-bottom: 28px;
+  box-shadow: 0 15px 35px rgba(249, 115, 22, 0.08);
+}
+
+.discovery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.discovery-title {
+  margin: 0;
+  font-size: 18px;
+  color: #9a4d14;
+}
+
+.discovery-summary {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.discovery-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: 1px solid #e5e7eb;
+}
+
+.control-group label,
+.toggle-pill {
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.control-group select {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #111827;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+}
+
+.toggle-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border-radius: 999px;
+  padding: 9px 14px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+
+.toggle-pill input {
+  accent-color: #ff5a1f;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .home-restaurant-section {
+    padding: 60px 5%;
+  }
+
+  .home-restaurant-section h2 {
+    font-size: 30px;
+  }
+}
