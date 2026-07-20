@@ -303,6 +303,14 @@
   border-radius: 18px;
   padding: 14px;
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05);
+  min-width: 0;
+}
+
+.manager-profile-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .manager-item-card,
@@ -321,6 +329,7 @@
 .manager-info-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
 }
 
@@ -330,12 +339,18 @@
 .manager-review-card strong,
 .manager-order-card strong {
   color: #0f172a;
+  flex-shrink: 0;
 }
 
 .manager-info-row span,
 .manager-profile-card__row span {
   text-align: right;
   color: #475569;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 60%;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .manager-form {

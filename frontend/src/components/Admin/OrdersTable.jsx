@@ -104,14 +104,7 @@ const OrdersTable = ({
 
                     <td>
 
-                      <span
-                        className={
-                          order.paymentStatus ===
-                          "Paid"
-                            ? "payment paid"
-                            : "payment pending"
-                        }
-                      >
+                      <span className="payment-mode">
                         {order.paymentMethod}
                       </span>
 

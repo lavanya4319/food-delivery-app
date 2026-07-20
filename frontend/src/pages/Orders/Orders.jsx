@@ -198,7 +198,7 @@ const Orders = () => {
 
                   <p>
                     <strong>Method :</strong>{" "}
-                    {order.paymentMethod}
+                    <span className="payment-mode">{order.paymentMethod}</span>
                   </p>
 
                   <p>

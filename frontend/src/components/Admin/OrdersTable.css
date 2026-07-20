@@ -61,7 +61,7 @@
     margin-top:4px;
 }
 
-.payment,
+.payment-mode,
 .order-status{
     padding:7px 14px;
     border-radius:30px;
@@ -70,12 +70,14 @@
     font-weight:600;
 }
 
-.payment.paid{
-    background:#22c55e;
-}
-
-.payment.pending{
-    background:#ef4444;
+.payment-mode{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#e0f2fe;
+    color:#075985;
+    border:1px solid rgba(14, 116, 144, 0.24);
+    white-space:nowrap;
 }
 
 .order-status.pending{

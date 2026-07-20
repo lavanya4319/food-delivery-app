@@ -189,6 +189,20 @@
   color: #ff5a1f;
 }
 
+.payment-mode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #075985;
+  font-size: 0.88rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 /* ============================= */
 
 @media (max-width: 768px) {
