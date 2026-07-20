@@ -29,3 +29,31 @@ export const createCategory = async (payload) => {
     );
   }
 };
+
+export const updateCategory = async (categoryId, payload) => {
+  try {
+    const { data } = await API.put(`/categories/${categoryId}`, payload);
+    return data;
+  } catch (error) {
+    return (
+      error.response?.data || {
+        success: false,
+        message: "Something went wrong",
+      }
+    );
+  }
+};
+
+export const deleteCategory = async (categoryId) => {
+  try {
+    const { data } = await API.delete(`/categories/${categoryId}`);
+    return data;
+  } catch (error) {
+    return (
+      error.response?.data || {
+        success: false,
+        message: "Something went wrong",
+      }
+    );
+  }
+};

@@ -169,6 +169,64 @@ const getAllOrders = async (req, res) => {
   }
 };
 
+// Assign restaurant to a manager account
+const assignRestaurantToManager = async (req, res) => {
+  try {
+    const { managerId, restaurantId } = req.body;
+
+    if (!managerId || !restaurantId) {
+      return res.status(400).json({
+        success: false,
+        message: "Manager ID and Restaurant ID are required",
+      });
+    }
+
+    const manager = await User.findById(managerId);
+
+    if (!manager) {
+      return res.status(404).json({
+        success: false,
+        message: "Manager not found",
+      });
+    }
+
+    if (!['manager', 'restaurant'].includes(manager.role)) {
+      return res.status(400).json({
+        success: false,
+        message: "Selected user is not a restaurant manager",
+      });
+    }
+
+    const restaurant = await Restaurant.findById(restaurantId);
+
+    if (!restaurant) {
+      return res.status(404).json({
+        success: false,
+        message: "Restaurant not found",
+      });
+    }
+
+    manager.assignedRestaurant = restaurantId;
+    restaurant.owner = managerId;
+
+    await Promise.all([manager.save(), restaurant.save()]);
+
+    res.status(200).json({
+      success: true,
+      message: "Restaurant assigned to manager successfully",
+      manager,
+      restaurant,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
 // Update Order Status (Admin)
 const updateOrderStatusAdmin = async (
   req,
@@ -214,5 +272,6 @@ module.exports = {
   toggleUserBlockStatus,
   getAllRestaurantsAdmin,
   getAllOrders,
+  assignRestaurantToManager,
   updateOrderStatusAdmin,
 };

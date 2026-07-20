@@ -10,11 +10,8 @@ import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const { login } = useAuth();
-
   const [loading, setLoading] = useState(false);
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -29,7 +26,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
 
     const response = await loginUser(formData);
@@ -37,12 +33,17 @@ const Login = () => {
     setLoading(false);
 
     if (response.success) {
-      login(response.user);
-
+      login(response.user, response.token);
       toast.success(response.message);
 
+      const dashboardMap = {
+        customer: "/",
+        manager: "/manager-dashboard",
+        admin: "/admin-dashboard",
+      };
+
       setTimeout(() => {
-        navigate("/");
+        navigate(dashboardMap[response.user.role] || "/");
       }, 1500);
     } else {
       toast.error(response.message);
@@ -56,7 +57,6 @@ const Login = () => {
       <div className="login-page">
         <div className="login-card">
           <h1>🍔 FoodExpress</h1>
-
           <h2>Welcome Back</h2>
 
           <form onSubmit={handleSubmit}>

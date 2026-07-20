@@ -59,6 +59,23 @@ export const getAllRestaurants = async () => {
   }
 };
 
+export const assignRestaurantToManager = async (managerId, restaurantId) => {
+  try {
+    const { data } = await API.patch(`/admin/users/${managerId}/assign-restaurant`, {
+      managerId,
+      restaurantId,
+    });
+    return data;
+  } catch (error) {
+    return (
+      error.response?.data || {
+        success: false,
+        message: "Server Error",
+      }
+    );
+  }
+};
+
 export const createRestaurant = async (payload) => {
   try {
     const { data } = await API.post("/restaurants", payload);

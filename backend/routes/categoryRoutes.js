@@ -20,7 +20,7 @@ const router = express.Router();
 router.post(
   "/",
   protect,
-  authorizeRoles(ROLES.RESTAURANT, ROLES.ADMIN),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   createCategory
 );
 
@@ -34,7 +34,7 @@ router.get(
 router.put(
   "/:id",
   protect,
-  authorizeRoles(ROLES.RESTAURANT, ROLES.ADMIN),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   updateCategory
 );
 
@@ -42,7 +42,7 @@ router.put(
 router.delete(
   "/:id",
   protect,
-  authorizeRoles(ROLES.RESTAURANT, ROLES.ADMIN),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   deleteCategory
 );
 

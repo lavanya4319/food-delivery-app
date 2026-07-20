@@ -1,19 +1,19 @@
 .dashboard-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  margin-bottom: 35px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 .dashboard-card {
   position: relative;
   overflow: hidden;
-  border-radius: 18px;
-  padding: 24px;
+  border-radius: 14px;
+  padding: 16px;
   color: white;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
   transition: all 0.35s ease;
   cursor: default;
   box-shadow: 0 12px 25px rgba(0,0,0,.12);
@@ -24,23 +24,23 @@
 }
 
 .card-icon {
-  width: 70px;
-  height: 70px;
-  border-radius: 18px;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
   background: rgba(255,255,255,.2);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 34px;
+  font-size: 24px;
 }
 
 .card-info h2 {
-  font-size: 34px;
-  margin-bottom: 8px;
+  font-size: 26px;
+  margin-bottom: 4px;
 }
 
 .card-info p {
-  font-size: 16px;
+  font-size: 14px;
   opacity: .95;
 }
 

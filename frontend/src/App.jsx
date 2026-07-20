@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
@@ -10,7 +11,7 @@ import Cart from "./pages/Cart/Cart";
 import Orders from "./pages/Orders/Orders";
 import Profile from "./pages/Profile/Profile";
 import Payment from "./pages/Payment/Payment";
-import RestaurantDashboard from "./pages/RestaurantDashboard/RestaurantDashboard";
+import ManagerDashboard from "./pages/ManagerDashboard/ManagerDashboard";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 
 function App() {
@@ -20,29 +21,71 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route path="/login" element={<Login />} />
-
         <Route path="/register" element={<Register />} />
-
         <Route path="/menu/:id" element={<Menu />} />
 
-        <Route path="/cart" element={<Cart />} />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/payment" element={<Payment />} />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <Payment />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/orders" element={<Orders />} />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <Orders />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute allowedRoles={["customer", "manager", "admin"]}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/manager-dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["manager", "restaurant"]}>
+              <ManagerDashboard />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/restaurant-dashboard"
-          element={<RestaurantDashboard />}
+          element={
+            <ProtectedRoute allowedRoles={["manager", "restaurant"]}>
+              <ManagerDashboard />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/admin-dashboard"
-          element={<AdminDashboard />}
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </>

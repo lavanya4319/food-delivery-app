@@ -43,14 +43,8 @@ const DashboardCards = ({ dashboard }) => {
   return (
     <div className="dashboard-cards">
       {cards.map((card) => (
-        <div
-          key={card.title}
-          className={`dashboard-card ${card.className}`}
-        >
-          <div className="card-icon">
-            {card.icon}
-          </div>
-
+        <div key={card.title} className={`dashboard-card ${card.className}`}>
+          <div className="card-icon">{card.icon}</div>
           <div className="card-info">
             <h2>{card.value}</h2>
             <p>{card.title}</p>

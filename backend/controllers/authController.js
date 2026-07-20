@@ -13,6 +13,13 @@ const registerUser = async (req, res) => {
       });
     }
 
+    const normalizedRole =
+      role === "admin"
+        ? "admin"
+        : role === "manager" || role === "restaurant"
+        ? "manager"
+        : "customer";
+
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -30,7 +37,7 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
       phone,
       address,
-      role,
+      role: normalizedRole,
     });
 
     res.status(201).json({
@@ -73,7 +80,6 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // 🚫 Blocked user check
     if (user.isBlocked) {
       return res.status(403).json({
         success: false,
@@ -95,6 +101,7 @@ const loginUser = async (req, res) => {
       {
         id: user._id,
         role: user.role,
+        assignedRestaurant: user.assignedRestaurant || null,
       },
       process.env.JWT_SECRET,
       {
@@ -111,6 +118,7 @@ const loginUser = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        assignedRestaurant: user.assignedRestaurant || null,
       },
     });
   } catch (error) {
@@ -148,8 +156,212 @@ const getProfile = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  try {
+    const { name, phone, address } = req.body;
+
+    if (!name || !phone || !address) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide name, phone, and address",
+      });
+    }
+
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User Not Found",
+      });
+    }
+
+    user.name = name;
+    user.phone = phone;
+    user.address = address;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide current and new password",
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: "New password must be at least 6 characters",
+      });
+    }
+
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User Not Found",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: "Current password is incorrect",
+      });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Password changed successfully",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide email",
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(200).json({
+        success: true,
+        message: "If an account exists, a reset token will be prepared.",
+      });
+    }
+
+    const resetToken = jwt.sign(
+      {
+        id: user._id,
+        purpose: "password-reset",
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "15m",
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Password reset token generated successfully.",
+      resetToken,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    if (!token || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide token and new password",
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: "New password must be at least 6 characters",
+      });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (decoded.purpose !== "password-reset") {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid reset token",
+      });
+    }
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User Not Found",
+      });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Password reset successful",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Invalid or Expired Token",
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   getProfile,
+  updateProfile,
+  changePassword,
+  forgotPassword,
+  resetPassword,
 };

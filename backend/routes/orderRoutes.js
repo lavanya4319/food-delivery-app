@@ -21,14 +21,14 @@ router.get("/", protect, getUserOrders);
 router.get(
   "/restaurant/:restaurantId",
   protect,
-  authorizeRoles(ROLES.RESTAURANT, ROLES.ADMIN),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   getRestaurantOrders
 );
 
 router.put(
   "/:id/status",
   protect,
-  authorizeRoles(ROLES.RESTAURANT, ROLES.ADMIN),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   updateOrderStatus
 );
 

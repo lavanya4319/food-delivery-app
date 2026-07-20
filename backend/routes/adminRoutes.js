@@ -6,6 +6,7 @@ const {
   toggleUserBlockStatus,
   getAllRestaurantsAdmin,
   getAllOrders,
+  assignRestaurantToManager,
   updateOrderStatusAdmin,
 } = require("../controllers/adminController");
 
@@ -44,6 +45,11 @@ router.get(
 router.get(
   "/orders",
   getAllOrders
+);
+
+router.patch(
+  "/users/:id/assign-restaurant",
+  assignRestaurantToManager
 );
 
 router.patch(

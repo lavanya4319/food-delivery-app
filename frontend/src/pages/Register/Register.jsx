@@ -110,7 +110,8 @@ const Register = () => {
               onChange={handleChange}
             >
               <option value="customer">Customer</option>
-              <option value="restaurant">Restaurant Owner</option>
+              <option value="manager">Restaurant Manager</option>
+              <option value="admin">Super Admin</option>
             </select>
 
             <button type="submit">

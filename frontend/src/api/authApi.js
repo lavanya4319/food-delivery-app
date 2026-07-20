@@ -34,6 +34,34 @@ export const loginUser = async (userData) => {
   }
 };
 
+export const forgotPasswordRequest = async (email) => {
+  try {
+    const { data } = await API.post("/auth/forgot-password", { email });
+    return data;
+  } catch (error) {
+    return (
+      error.response?.data || {
+        success: false,
+        message: "Something went wrong",
+      }
+    );
+  }
+};
+
+export const resetPasswordRequest = async (payload) => {
+  try {
+    const { data } = await API.post("/auth/reset-password", payload);
+    return data;
+  } catch (error) {
+    return (
+      error.response?.data || {
+        success: false,
+        message: "Something went wrong",
+      }
+    );
+  }
+};
+
 export const logoutUser = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");

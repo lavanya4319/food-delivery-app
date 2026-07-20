@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL:
-    "https://online-food-ordering-stystem-backend.onrender.com/api",
+  // baseURL: "https://online-food-ordering-stystem-backend.onrender.com/api",
+  baseURL: "http://localhost:5000/api",
 });
 
 // Attach token automatically

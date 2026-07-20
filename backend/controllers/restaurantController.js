@@ -17,6 +17,23 @@ const createRestaurant = async (req, res) => {
       rating,
     } = req.body;
 
+    const isManagerScopedRole =
+      req.user.role === "manager" || req.user.role === "restaurant";
+
+    if (isManagerScopedRole) {
+      const existingOwnedRestaurant = await Restaurant.findOne({
+        owner: req.user.id,
+      });
+
+      if (existingOwnedRestaurant) {
+        return res.status(403).json({
+          success: false,
+          message:
+            "Restaurant manager can manage only one assigned restaurant.",
+        });
+      }
+    }
+
     if (
       !restaurantName ||
       !description ||
@@ -69,14 +86,33 @@ const createRestaurant = async (req, res) => {
 
 const getMyRestaurants = async (req, res) => {
   try {
-    const restaurants = await Restaurant.find({
-      owner: req.user.id,
-    }).sort({ createdAt: -1 });
+    const isManagerScopedRole =
+      req.user.role === "manager" || req.user.role === "restaurant";
+
+    let scopedRestaurants = [];
+
+    if (isManagerScopedRole && req.user.assignedRestaurant) {
+      const assignedRestaurant = await Restaurant.findById(req.user.assignedRestaurant);
+
+      if (assignedRestaurant) {
+        scopedRestaurants = [assignedRestaurant];
+      }
+    } else {
+      scopedRestaurants = await Restaurant.find({
+        owner: req.user.id,
+      }).sort({ createdAt: -1 });
+    }
+
+    if (isManagerScopedRole && scopedRestaurants.length === 0) {
+      scopedRestaurants = await Restaurant.find({
+        owner: req.user.id,
+      }).sort({ createdAt: -1 });
+    }
 
     res.status(200).json({
       success: true,
-      count: restaurants.length,
-      restaurants,
+      count: scopedRestaurants.length,
+      restaurants: scopedRestaurants,
     });
   } catch (error) {
     console.log(error);

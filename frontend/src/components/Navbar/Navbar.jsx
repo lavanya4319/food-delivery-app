@@ -89,13 +89,13 @@ const Navbar = () => {
             </>
           )}
 
-          {user?.role === "restaurant" && (
+          {(user?.role === "manager" || user?.role === "restaurant") && (
             <NavLink
-              to="/restaurant-dashboard"
+              to="/manager-dashboard"
               onClick={closeMenu}
             >
               <FaStore />
-              Dashboard
+              Manager Dashboard
             </NavLink>
           )}
 

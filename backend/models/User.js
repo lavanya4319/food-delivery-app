@@ -34,8 +34,14 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["customer", "restaurant", "admin"],
+      enum: ["customer", "manager", "restaurant", "admin"],
       default: "customer",
+    },
+
+    assignedRestaurant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Restaurant",
+      default: null,
     },
 
     isBlocked: {

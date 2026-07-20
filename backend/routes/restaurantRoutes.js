@@ -15,12 +15,14 @@ const {
   authorizeRoles,
 } = require("../middleware/authMiddleware");
 
+const ROLES = require("../constants/roles");
+
 const router = express.Router();
 
 router.post(
   "/",
   protect,
-  authorizeRoles("restaurant", "admin"),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   createRestaurant
 );
 
@@ -29,7 +31,7 @@ router.get("/", getAllRestaurants);
 router.get(
   "/my-restaurants",
   protect,
-  authorizeRoles("restaurant", "admin"),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   getMyRestaurants
 );
 
@@ -38,21 +40,21 @@ router.get("/:id", getRestaurantById);
 router.put(
   "/:id",
   protect,
-  authorizeRoles("restaurant", "admin"),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   updateRestaurant
 );
 
 router.patch(
   "/:id/status",
   protect,
-  authorizeRoles("restaurant", "admin"),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   toggleRestaurantStatus
 );
 
 router.delete(
   "/:id",
   protect,
-  authorizeRoles("restaurant", "admin"),
+  authorizeRoles(ROLES.MANAGER, ROLES.RESTAURANT, ROLES.ADMIN),
   deleteRestaurant
 );
 
